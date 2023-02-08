@@ -1,4 +1,10 @@
-import { ImageBackground, StyleSheet, View } from "react-native";
+import {
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  StatusBar,
+  View,
+} from "react-native";
 import StartGameScreen from "./pages/start-game-screen";
 import { LinearGradient } from "expo-linear-gradient";
 import GameScreen from "./pages/game-screen";
@@ -22,7 +28,9 @@ export default function App() {
         imageStyle={{ opacity: 0.2 }}
         source={require("./assets/images/background.png")}
       >
-        {screen}
+        <SafeAreaView style={[styles.rootScreen, styles.safeArea]}>
+          {screen}
+        </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );
@@ -31,5 +39,8 @@ export default function App() {
 const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
+  },
+  safeArea: {
+    marginTop: StatusBar.currentHeight,
   },
 });
