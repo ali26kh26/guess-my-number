@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     borderWidth: 2,
     borderRadius: 4,
-    borderColor: colors.accent500,
+    borderColor: "white",
     padding: 12,
-    color: colors.accent500,
+    color: "white",
     textAlign: "center",
   },
 });
