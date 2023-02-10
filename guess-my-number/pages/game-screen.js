@@ -4,6 +4,7 @@ import Card from "../components/UI/card";
 import GuessNumber from "../components/UI/game/guess-number";
 import PrimaryButton from "../components/UI/primary-button";
 import Title from "../components/UI/title";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 let minNumber = 1;
 let maxNumber = 100;
@@ -56,12 +57,12 @@ const GameScreen = ({ userNumber, onGameOver }) => {
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
             <PrimaryButton onPress={() => nextGuessGenerator("lower")}>
-              -
+              <Ionicons name="md-remove" size={24} />
             </PrimaryButton>
           </View>
           <View style={styles.button}>
             <PrimaryButton onPress={() => nextGuessGenerator("greater")}>
-              +
+              <Ionicons name="md-add" size={24} />
             </PrimaryButton>
           </View>
         </View>
