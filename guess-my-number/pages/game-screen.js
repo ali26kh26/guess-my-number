@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import Card from "../components/UI/card";
-import GuessNumber from "../components/UI/game/guess-number";
+import GuessNumber from "../components/game/guess-number";
 import PrimaryButton from "../components/UI/primary-button";
 import Title from "../components/UI/title";
 import Ionicons from "@expo/vector-icons/Ionicons";
