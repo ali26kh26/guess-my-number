@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Alert, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/UI/primary-button";
+import Title from "../components/UI/title";
 import colors from "../utils/colors";
 
 const StartGameScreen = ({ onConfirmNumber }) => {
@@ -27,20 +28,25 @@ const StartGameScreen = ({ onConfirmNumber }) => {
     onConfirmNumber(chosenNumber);
   };
   return (
-    <View style={styles.container}>
-      <TextInput
-        value={enteredNumber}
-        onChangeText={inputChangeHandler}
-        maxLength={2}
-        keyboardType="numeric"
-        style={styles.input}
-      />
-      <View style={styles.buttonContainer}>
-        <View style={styles.button}>
-          <PrimaryButton onPress={resetInputHndler}>Reset</PrimaryButton>
-        </View>
-        <View style={styles.button}>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+    <View style={styles.rootConatiner}>
+      <Title>Guess my number</Title>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.hintText}>Enter your number below</Text>
+        <TextInput
+          value={enteredNumber}
+          onChangeText={inputChangeHandler}
+          maxLength={2}
+          keyboardType="numeric"
+          style={styles.input}
+        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <PrimaryButton onPress={resetInputHndler}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.button}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
       </View>
     </View>
@@ -48,11 +54,19 @@ const StartGameScreen = ({ onConfirmNumber }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  rootConatiner: {
+    marginTop: 20,
     padding: 16,
-    marginTop: 100,
+  },
+  hintText: {
+    color: colors.accent500,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  inputContainer: {
+    padding: 16,
+    marginTop: 50,
     backgroundColor: colors.primary800,
-    marginHorizontal: 24,
     borderRadius: 8,
     elevation: 8,
     shadowColor: "black",
