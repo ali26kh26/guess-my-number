@@ -1,7 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
-const Card = ({ children }) => {
-  return <View style={styles.card}>{children}</View>;
+const Card = ({ children, text }) => {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.hintText}>{text}</Text>
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -17,6 +22,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  hintText: {
+    color: colors.accent500,
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 

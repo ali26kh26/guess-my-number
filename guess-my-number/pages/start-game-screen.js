@@ -32,8 +32,7 @@ const StartGameScreen = ({ onConfirmNumber }) => {
     <View style={styles.rootConatiner}>
       <Title>Guess my number</Title>
 
-      <Card>
-        <Text style={styles.hintText}>Enter your number below</Text>
+      <Card text="Enter your number below">
         <TextInput
           value={enteredNumber}
           onChangeText={inputChangeHandler}
@@ -58,11 +57,6 @@ const styles = StyleSheet.create({
   rootConatiner: {
     marginTop: 20,
     padding: 16,
-  },
-  hintText: {
-    color: colors.accent500,
-    fontSize: 20,
-    fontWeight: "bold",
   },
   input: {
     height: 50,
