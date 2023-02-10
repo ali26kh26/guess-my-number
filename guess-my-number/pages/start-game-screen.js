@@ -24,7 +24,7 @@ const StartGameScreen = ({ onConfirmNumber }) => {
       );
       return;
     }
-    onConfirmNumber(enteredNumber);
+    onConfirmNumber(chosenNumber);
   };
   return (
     <View style={styles.container}>
