@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Alert, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import Card from "../components/UI/card";
 import PrimaryButton from "../components/UI/primary-button";
+import Title from "../components/UI/title";
 import colors from "../utils/colors";
 
 const StartGameScreen = ({ onConfirmNumber }) => {
@@ -24,43 +26,37 @@ const StartGameScreen = ({ onConfirmNumber }) => {
       );
       return;
     }
-    onConfirmNumber(enteredNumber);
+    onConfirmNumber(chosenNumber);
   };
   return (
-    <View style={styles.container}>
-      <TextInput
-        value={enteredNumber}
-        onChangeText={inputChangeHandler}
-        maxLength={2}
-        keyboardType="numeric"
-        style={styles.input}
-      />
-      <View style={styles.buttonContainer}>
-        <View style={styles.button}>
-          <PrimaryButton onPress={resetInputHndler}>Reset</PrimaryButton>
+    <View style={styles.rootConatiner}>
+      <Title>Guess my number</Title>
+
+      <Card text="Enter your number below">
+        <TextInput
+          value={enteredNumber}
+          onChangeText={inputChangeHandler}
+          maxLength={2}
+          keyboardType="numeric"
+          style={styles.input}
+        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <PrimaryButton onPress={resetInputHndler}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.button}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.button}>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
-        </View>
-      </View>
+      </Card>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  rootConatiner: {
+    marginTop: 20,
     padding: 16,
-    marginTop: 100,
-    backgroundColor: colors.primary800,
-    marginHorizontal: 24,
-    borderRadius: 8,
-    elevation: 8,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
-    alignItems: "center",
-    justifyContent: "space-between",
   },
   input: {
     height: 50,

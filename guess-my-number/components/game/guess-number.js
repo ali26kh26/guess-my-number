@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import colors from "../../../utils/colors";
+import colors from "../../utils/colors";
 
 const GuessNumber = ({ children }) => {
   return (
@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: colors.accent500,
     letterSpacing: 2,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: "open-sans-bold",
   },
 });
 

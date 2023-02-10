@@ -8,20 +8,52 @@ import {
 import StartGameScreen from "./pages/start-game-screen";
 import { LinearGradient } from "expo-linear-gradient";
 import GameScreen from "./pages/game-screen";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import colors from "./utils/colors";
+import GameOverScreen from "./pages/game-over-screen";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [userNumber, setUserNumber] = useState();
+  const [gameIsOver, setgameIsOver] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   const confirmNumberHandler = (confirmedNumber) => {
     setUserNumber(confirmedNumber);
   };
 
+  const GameOverHandler = () => {
+    setgameIsOver(true);
+  };
+
   let screen = <StartGameScreen onConfirmNumber={confirmNumberHandler} />;
 
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} />;
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={GameOverHandler} />
+    );
   }
+  if (gameIsOver) {
+    screen = <GameOverScreen />;
+  }
+
   return (
     <LinearGradient
       colors={[colors.primary900, colors.accent500]}
@@ -32,7 +64,10 @@ export default function App() {
         imageStyle={{ opacity: 0.2 }}
         source={require("./assets/images/background.png")}
       >
-        <SafeAreaView style={[styles.rootScreen, styles.safeArea]}>
+        <SafeAreaView
+          onLayout={onLayoutRootView}
+          style={[styles.rootScreen, styles.safeArea]}
+        >
           {screen}
         </SafeAreaView>
       </ImageBackground>
