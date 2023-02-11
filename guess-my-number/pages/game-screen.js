@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, View } from "react-native";
 import Card from "../components/UI/card";
 import GuessNumber from "../components/game/guess-number";
 import PrimaryButton from "../components/UI/primary-button";
 import Title from "../components/UI/title";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import colors from "../utils/colors";
 
 let minNumber = 1;
 let maxNumber = 100;
 
-const GameScreen = ({ userNumber, onGameOver }) => {
+const GameScreen = ({ userNumber, onGameOver, onGeneratGuess }) => {
   const [phoneGuess, setphoneGuess] = useState(
     generateRandomBetween(1, 100, userNumber)
   );
+  const [guessList, setGuessList] = useState([]);
 
   useEffect(() => {
     if (phoneGuess === userNumber) {
       onGameOver();
+      minNumber = 1;
+      maxNumber = 100;
     }
   }, [phoneGuess, userNumber, onGameOver]);
 
@@ -46,7 +50,14 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     } else if (direction === "greater") {
       minNumber = phoneGuess;
     }
-    setphoneGuess(generateRandomBetween(minNumber, maxNumber, phoneGuess));
+    const newRandomNumber = generateRandomBetween(
+      minNumber,
+      maxNumber,
+      phoneGuess
+    );
+    setGuessList((prev) => [phoneGuess, ...prev]);
+    setphoneGuess(newRandomNumber);
+    onGeneratGuess();
   };
 
   return (
@@ -67,6 +78,16 @@ const GameScreen = ({ userNumber, onGameOver }) => {
           </View>
         </View>
       </Card>
+      {guessList.length > 0 && (
+        <FlatList
+          data={guessList}
+          renderItem={({ item }) => {
+            return <GuessNumber>{item}</GuessNumber>;
+          }}
+          keyExtractor={(item) => item}
+          style={styles.guessList}
+        />
+      )}
     </View>
   );
 };
@@ -74,6 +95,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     marginTop: 16,
+    flex: 1,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -81,6 +103,12 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
+  },
+  guessList: {
+    paddingVertical: 10,
+    backgroundColor: colors.primary800,
+    marginVertical: 10,
+    borderRadius: 8,
   },
 });
 export default GameScreen;
